@@ -1,7 +1,7 @@
 using Kata_IA_refactoring.Models;
 using Microsoft.Extensions.Logging.Abstractions;
 
-namespace Kata_IA_refactoringTests;
+namespace Kata_IA_refactoringTests.Services;
 
 public class AssertionActionServiceTests
 {

@@ -28,6 +28,7 @@ public class AssertionActionService : IAssertionActionService
         };
     }
 
+    //TODO: Refactor this method to remove duplication and improve readability to get close to natural language
     private bool ValidateMandatoryClaims(ClaimsInfos claimsInfos, string requestedEmail)
     {
         bool claimsIsValid = true;

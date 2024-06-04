@@ -46,4 +46,22 @@ public class AssertionActionServiceTests
 
         Assert.Equal(AssertionActionStatus.Error, response.Status);
     }
+
+    [Fact]
+    public void ValidAssertion_WithClaimsInfos_Empty_But_ClaimsNotRequired()
+    {
+        var service = new AssertionActionService(NullLogger<AssertionActionService>.Instance);
+        var request = new AssertionConsumerServiceRequest { IsClaimsRequired = false };
+        var claimsInfos = new ClaimsInfos
+        {
+            Email = "",
+            UserName = "",
+            FirstName = "",
+            LastName = ""
+        };
+
+        var response = service.GetAssertionActionResponse(request, claimsInfos, "test@test.fr");
+
+        Assert.Equal(AssertionActionStatus.Success, response.Status);
+    }
 }

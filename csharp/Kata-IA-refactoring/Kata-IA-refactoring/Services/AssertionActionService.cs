@@ -13,7 +13,8 @@ public class AssertionActionService : IAssertionActionService
 
     public AssertionActionResponse GetAssertionActionResponse(AssertionConsumerServiceRequest assertionConsumerServiceRequest, ClaimsInfos claimsInfos, string requestedEmail)
     {
-        if (assertionConsumerServiceRequest.IsClaimsRequired && !ValidateMandatoryClaims(claimsInfos, requestedEmail))
+        // change rename to AnyRequiredClaimsAreNullOrEmpty and remove negation to make it more readable
+        if (assertionConsumerServiceRequest.IsClaimsRequired && AnyRequiredClaimsAreNullOrEmpty(claimsInfos, requestedEmail))
         {
             return new AssertionActionResponse
             {
@@ -28,35 +29,25 @@ public class AssertionActionService : IAssertionActionService
         };
     }
 
-    //TODO: Refactor this method to remove duplication and improve readability to get close to natural language
-    private bool ValidateMandatoryClaims(ClaimsInfos claimsInfos, string requestedEmail)
+    //Change: transform if to loop
+    private bool AnyRequiredClaimsAreNullOrEmpty(ClaimsInfos claimsInfos, string requestedEmail)
     {
-        bool claimsIsValid = true;
-
-        if (string.IsNullOrEmpty(claimsInfos.Email))
+        var claimsRequired = new List<(string Name, bool IsNullOrEmpty)>
         {
-            _logger.LogWarning($"The claim {nameof(claimsInfos.Email)} is not correctly configured in the identity provider for this user {requestedEmail}");
-            claimsIsValid = false;
+            (nameof(claimsInfos.Email), string.IsNullOrEmpty(claimsInfos.Email)),
+            (nameof(claimsInfos.UserName), string.IsNullOrEmpty(claimsInfos.UserName)),
+            (nameof(claimsInfos.FirstName), string.IsNullOrEmpty(claimsInfos.FirstName)),
+            (nameof(claimsInfos.LastName), string.IsNullOrEmpty(claimsInfos.LastName))
+        };
+
+        foreach (var claim in claimsRequired)
+        {
+            if (claim.IsNullOrEmpty)
+            {
+                _logger.LogWarning($"The claim {claim.Name} is not correctly configured in the identity provider for this user {requestedEmail}");
+            }
         }
 
-        if (string.IsNullOrEmpty(claimsInfos.UserName))
-        {
-            _logger.LogWarning($"The claim {nameof(claimsInfos.UserName)} is not correctly configured in the identity provider for this user {requestedEmail}");
-            claimsIsValid = false;
-        }
-
-        if (string.IsNullOrEmpty(claimsInfos.FirstName))
-        {
-            _logger.LogWarning($"The claim {nameof(claimsInfos.FirstName)} is not correctly configured in the identity provider for this user {requestedEmail}");
-            claimsIsValid = false;
-        }
-
-        if (string.IsNullOrEmpty(claimsInfos.LastName))
-        {
-            _logger.LogWarning($"The claim {nameof(claimsInfos.LastName)} is not correctly configured in the identity provider for this user {requestedEmail}");
-            claimsIsValid = false;
-        }
-
-        return claimsIsValid;
+        return claimsRequired.Any(claim => claim.IsNullOrEmpty);
     }
 }

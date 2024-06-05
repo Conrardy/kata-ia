@@ -1,2 +1,3 @@
 ﻿php/.phpunit.cache/test-results
 php/.phpunit.result.cache
+ts/error.log

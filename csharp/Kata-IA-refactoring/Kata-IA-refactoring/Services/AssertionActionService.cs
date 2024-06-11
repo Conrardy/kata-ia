@@ -13,7 +13,7 @@ public class AssertionActionService : IAssertionActionService
 
     public AssertionActionResponse GetAssertionActionResponse(AssertionConsumerServiceRequest assertionConsumerServiceRequest, ClaimsInfos claimsInfos, string requestedEmail)
     {
-        if (assertionConsumerServiceRequest.IsClaimsRequired && !ValidateMandatoryClaims(claimsInfos, requestedEmail))
+        if (assertionConsumerServiceRequest.IsClaimsRequired && AnyRequiredClaimsNullOrEmpty(claimsInfos, requestedEmail))
         {
             return new AssertionActionResponse
             {
@@ -28,10 +28,9 @@ public class AssertionActionService : IAssertionActionService
         };
     }
 
-    //TODO: Refactor this method to remove duplication and improve readability to get close to natural language
-    private bool ValidateMandatoryClaims(ClaimsInfos claimsInfos, string requestedEmail)
+    private bool AnyRequiredClaimsNullOrEmpty(ClaimsInfos claimsInfos, string requestedEmail)
     {
-        return !claimsInfos
+        return claimsInfos
             .Required()
             .NullOrEmpty()
             .LogWarning(_logger, requestedEmail)

@@ -31,32 +31,39 @@ public class AssertionActionService : IAssertionActionService
     //TODO: Refactor this method to remove duplication and improve readability to get close to natural language
     private bool ValidateMandatoryClaims(ClaimsInfos claimsInfos, string requestedEmail)
     {
-        bool claimsIsValid = true;
+        return !claimsInfos
+            .Required()
+            .NullOrEmpty()
+            .LogWarning(_logger, requestedEmail)
+            .Any();
+    }
+}
 
-        if (string.IsNullOrEmpty(claimsInfos.Email))
+public static class ClaimsExtensions
+{
+    public static IEnumerable<KeyValuePair<string, string>> Required(this ClaimsInfos claimsInfos)
+    {
+        return new Dictionary<string, string>
         {
-            _logger.LogWarning($"The claim {nameof(claimsInfos.Email)} is not correctly configured in the identity provider for this user {requestedEmail}");
-            claimsIsValid = false;
+            { nameof(claimsInfos.Email), claimsInfos.Email },
+            { nameof(claimsInfos.UserName), claimsInfos.UserName },
+            { nameof(claimsInfos.FirstName), claimsInfos.FirstName },
+            { nameof(claimsInfos.LastName), claimsInfos.LastName }
+        };
+    }
+
+    public static IEnumerable<KeyValuePair<string, string>> NullOrEmpty(this IEnumerable<KeyValuePair<string, string>> claims)
+    {
+        return claims.Where(claim => string.IsNullOrEmpty(claim.Value));
+    }
+
+    public static IEnumerable<KeyValuePair<string, string>> LogWarning(this IEnumerable<KeyValuePair<string, string>> claims, ILogger logger, string requestedEmail)
+    {
+        foreach (var claim in claims)
+        {
+            logger.LogWarning($"The claim {claim.Key} is not correctly configured in the identity provider for this user {requestedEmail}");
         }
 
-        if (string.IsNullOrEmpty(claimsInfos.UserName))
-        {
-            _logger.LogWarning($"The claim {nameof(claimsInfos.UserName)} is not correctly configured in the identity provider for this user {requestedEmail}");
-            claimsIsValid = false;
-        }
-
-        if (string.IsNullOrEmpty(claimsInfos.FirstName))
-        {
-            _logger.LogWarning($"The claim {nameof(claimsInfos.FirstName)} is not correctly configured in the identity provider for this user {requestedEmail}");
-            claimsIsValid = false;
-        }
-
-        if (string.IsNullOrEmpty(claimsInfos.LastName))
-        {
-            _logger.LogWarning($"The claim {nameof(claimsInfos.LastName)} is not correctly configured in the identity provider for this user {requestedEmail}");
-            claimsIsValid = false;
-        }
-
-        return claimsIsValid;
+        return claims;
     }
 }

@@ -1,7 +1,7 @@
 using Kata_IA_refactoring.Models;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
+using System.Text.RegularExpressions;
 
 namespace Kata_IA_refactoringTests.Services;
 
@@ -29,7 +29,9 @@ public class AssertionActionServiceTests
         new object[] { new TestCase { Email = "test@test.fr", UserName = "", FirstName = "test", LastName = "test", IsClaimsRequired = false, ExpectedStatus = AssertionActionStatus.Success, ExpectedWarnings = 0 } }, // UserName missing, claims not required
         new object[] { new TestCase { Email = "test@test.fr", UserName = "test", FirstName = "", LastName = "test", IsClaimsRequired = false, ExpectedStatus = AssertionActionStatus.Success, ExpectedWarnings = 0 } }, // FirstName missing, claims not required
         new object[] { new TestCase { Email = "test@test.fr", UserName = "test", FirstName = "test", LastName = "", IsClaimsRequired = false, ExpectedStatus = AssertionActionStatus.Success, ExpectedWarnings = 0 } }, // LastName missing, claims not required
-        new object[] { new TestCase { Email = "", UserName = "", FirstName = "test", LastName = "test", IsClaimsRequired = false, ExpectedStatus = AssertionActionStatus.Success, ExpectedWarnings = 0 } } // Email and UserName missing, claims not required
+        new object[] { new TestCase { Email = "", UserName = "", FirstName = "test", LastName = "test", IsClaimsRequired = false, ExpectedStatus = AssertionActionStatus.Success, ExpectedWarnings = 0 } }, // Email and UserName missing, claims not required
+        new object[] { new TestCase { Email = null, UserName = null, FirstName = null, LastName = null, IsClaimsRequired = true, ExpectedStatus = AssertionActionStatus.Error, ExpectedWarnings = 4 } }, // All claims missing, claims required
+        new object[] { new TestCase { Email = null, UserName = null, FirstName = null, LastName = null, IsClaimsRequired = false, ExpectedStatus = AssertionActionStatus.Success, ExpectedWarnings = 0 } } // All claims missing, claims not required
     };
 
     [Theory]
@@ -42,15 +44,26 @@ public class AssertionActionServiceTests
         var response = _service.GetAssertionActionResponse(request, claimsInfos, "test@test.fr");
 
         Assert.Equal(testCase.ExpectedStatus, response.Status);
+        Assert.Equal(response.Message, testCase.ExpectedStatus == AssertionActionStatus.Error ? "The mandatory claims are not correctly configured in the identity provider" : null);
 
         _mockLogger.Verify(
             x => x.Log(
                 It.IsAny<LogLevel>(),
                 It.IsAny<EventId>(),
-                It.Is<It.IsAnyType>((v, t) => v.ToString().Contains("is not correctly configured in the identity provider for this user test@test.fr")),
+                It.Is<It.IsAnyType>((v, t) => Regex.IsMatch(v.ToString(), @"The claim (Email|UserName|FirstName|LastName) is not correctly configured in the identity provider for this user \w+@\w+\.\w+")),
                 It.IsAny<Exception>(),
                 It.Is<Func<It.IsAnyType, Exception, string>>((v, t) => true)),
             Times.Exactly(testCase.ExpectedWarnings));
+
+    }
+
+    [Fact]
+    public void AssertionActionResponse_instance_should_have_default_values()
+    {
+        var response = new AssertionActionResponse();
+
+        Assert.Null(response.Message);
+        Assert.Equal(AssertionActionStatus.Error, response.Status);
     }
 
     private ClaimsInfos SetupClaimsInfos(string email, string userName, string firstName, string lastName)
@@ -74,69 +87,4 @@ public class TestCase
     public bool IsClaimsRequired { get; set; }
     public AssertionActionStatus ExpectedStatus { get; set; }
     public int ExpectedWarnings { get; set; }
-}
-
-public class AssertionActionServiceTestsOld
-{
-    [Fact]
-    public void Instanciate_AssertionActionService()
-    {
-        _ = new AssertionActionService(NullLogger<AssertionActionService>.Instance);
-    }
-
-    [Fact]
-    public void ValidAssertion_WithClaimsRequired()
-    {
-        var service = new AssertionActionService(NullLogger<AssertionActionService>.Instance);
-        var request = new AssertionConsumerServiceRequest { IsClaimsRequired = true };
-        var claimsInfos = new ClaimsInfos
-        {
-            Email = "test@test.fr",
-            UserName = "test",
-            FirstName = "test",
-            LastName = "test"
-        };
-
-        var response = service.GetAssertionActionResponse(request, claimsInfos, "test@test.fr");
-
-        Assert.Equal(AssertionActionStatus.Success, response.Status);
-    }
-
-    [Fact]
-    public void InvalidAssertion_WithClaimsRequired()
-    {
-        var service = new AssertionActionService(NullLogger<AssertionActionService>.Instance);
-        var request = new AssertionConsumerServiceRequest { IsClaimsRequired = true };
-        var claimsInfos = new ClaimsInfos
-        {
-            Email = "",
-            UserName = "",
-            FirstName = "",
-            LastName = ""
-        };
-
-        var response = service.GetAssertionActionResponse(request, claimsInfos, "test@test.fr");
-
-        Assert.Equal(AssertionActionStatus.Error, response.Status);
-    }
-
-    [Fact]
-    public void ValidAssertion_WithClaimsInfos_Empty_But_ClaimsNotRequired()
-    {
-        var service = new AssertionActionService(NullLogger<AssertionActionService>.Instance);
-        var request = new AssertionConsumerServiceRequest { IsClaimsRequired = false };
-        var claimsInfos = new ClaimsInfos
-        {
-            Email = "",
-            UserName = "",
-            FirstName = "",
-            LastName = ""
-        };
-
-        var response = service.GetAssertionActionResponse(request, claimsInfos, "test@test.fr");
-
-        Assert.Equal(AssertionActionStatus.Success, response.Status);
-    }
-
-
 }

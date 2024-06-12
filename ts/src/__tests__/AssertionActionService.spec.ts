@@ -50,5 +50,77 @@ describe('AssertionActionService', () => {
 
             expect(response.status).toBe('Success');
         });
+
+        it('should return error when claims are required but email is empty', () => {
+            const request: AssertionConsumerServiceRequest = {
+                isClaimsRequired: true,
+            };
+            const claimsInfos: ClaimsInfos = {
+                email: '',
+                userName: 'test',
+                firstName: 'test',
+                lastName: 'test'
+            };
+            const requestedEmail = 'test@example.com';
+
+            const response = service.getAssertionActionResponse(request, claimsInfos, requestedEmail);
+
+            expect(response.status).toBe('Error');
+            expect(response.message).toBe('The mandatory claims are not correctly configured in the identity provider');
+        });
+
+        it('should return error when claims are required but username is empty', () => {
+            const request: AssertionConsumerServiceRequest = {
+                isClaimsRequired: true,
+            };
+            const claimsInfos: ClaimsInfos = {
+                email: 'test@example.com',
+                userName: '',
+                firstName: 'test',
+                lastName: 'test'
+            };
+            const requestedEmail = 'test@example.com';
+
+            const response = service.getAssertionActionResponse(request, claimsInfos, requestedEmail);
+
+            expect(response.status).toBe('Error');
+            expect(response.message).toBe('The mandatory claims are not correctly configured in the identity provider');
+        });
+
+        it('should return error when claims are required but firstName is empty', () => {
+            const request: AssertionConsumerServiceRequest = {
+                isClaimsRequired: true,
+            };
+            const claimsInfos: ClaimsInfos = {
+                email: 'test@example.com',
+                userName: 'test',
+                firstName: '',
+                lastName: 'test'
+            };
+            const requestedEmail = 'test@example.com';
+
+            const response = service.getAssertionActionResponse(request, claimsInfos, requestedEmail);
+
+            expect(response.status).toBe('Error');
+            expect(response.message).toBe('The mandatory claims are not correctly configured in the identity provider');
+        });
+
+        it('should return error when claims are required but lastName is empty', () => {
+            const request: AssertionConsumerServiceRequest = {
+                isClaimsRequired: true,
+            };
+            const claimsInfos: ClaimsInfos = {
+                email: 'test@example.com',
+                userName: 'test',
+                firstName: 'test',
+                lastName: ''
+            };
+            const requestedEmail = 'test@example.com';
+
+            const response = service.getAssertionActionResponse(request, claimsInfos, requestedEmail);
+
+            expect(response.status).toBe('Error');
+            expect(response.message).toBe('The mandatory claims are not correctly configured in the identity provider');
+        });
     });
 });

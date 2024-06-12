@@ -5,10 +5,10 @@ export interface AssertionConsumerServiceRequest {
 }
 
 export interface ClaimsInfos {
-    email?: string;
-    userName?: string;
-    firstName?: string;
-    lastName?: string;
+    email?: string | null;
+    userName?: string | null;
+    firstName?: string | null;
+    lastName?: string | null;
 }
 
 enum AssertionActionStatus {

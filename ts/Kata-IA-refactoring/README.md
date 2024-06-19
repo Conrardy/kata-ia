@@ -11,7 +11,7 @@
 
     ```bash
     git clone https://github.com/Conrardy/kata-ia.git
-    cd kata-ia/ts
+    cd kata-ia/ts/Kata-IA-Refactoring
     ```
 
 2. Installez les dépendances :

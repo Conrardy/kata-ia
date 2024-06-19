@@ -29,28 +29,23 @@ class AssertionActionService implements IAssertionActionService
         ];
     }
 
+
     private function validateMandatoryClaims($claimsInfos, $requestedEmail)
     {
+        $mandatoryClaims = [
+            'email' => $claimsInfos->email,
+            'userName' => $claimsInfos->userName,
+            'firstName' => $claimsInfos->firstName,
+            'lastName' => $claimsInfos->lastName,
+        ];
+
         $claimsIsValid = true;
 
-        if (empty($claimsInfos->email)) {
-            $this->logger->warning("The claim Email is not correctly configured in the identity provider for this user {$requestedEmail}");
-            $claimsIsValid = false;
-        }
-
-        if (empty($claimsInfos->userName)) {
-            $this->logger->warning("The claim UserName is not correctly configured in the identity provider for this user {$requestedEmail}");
-            $claimsIsValid = false;
-        }
-
-        if (empty($claimsInfos->firstName)) {
-            $this->logger->warning("The claim FirstName is not correctly configured in the identity provider for this user {$requestedEmail}");
-            $claimsIsValid = false;
-        }
-
-        if (empty($claimsInfos->lastName)) {
-            $this->logger->warning("The claim LastName is not correctly configured in the identity provider for this user {$requestedEmail}");
-            $claimsIsValid = false;
+        foreach ($mandatoryClaims as $claimName => $claimValue) {
+            if (empty($claimValue)) {
+                $this->logger->warning("The claim {$claimName} is not correctly configured in the identity provider for this user {$requestedEmail}");
+                $claimsIsValid = false;
+            }
         }
 
         return $claimsIsValid;

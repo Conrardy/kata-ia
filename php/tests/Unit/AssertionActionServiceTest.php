@@ -66,4 +66,73 @@ class AssertionActionServiceTest extends TestCase
 
         $this->assertEquals('Success', $response['status']);
     }
+
+    // Add test to test if email empty but other claims are not empty
+    public function testGetAssertionActionResponseWithEmailNotEmptyButOtherClaimsEmpty()
+    {
+        $assertionConsumerServiceRequest = (object) ['isClaimsRequired' => true];
+        $claimsInfos = (object) [
+            'email' => '',
+            'userName' => 'test',
+            'firstName' => 'test',
+            'lastName' => 'test'
+        ];
+        $requestedEmail = 'user@example.com';
+
+        $response = $this->assertionActionService->getAssertionActionResponse($assertionConsumerServiceRequest, $claimsInfos, $requestedEmail);
+
+        $this->assertEquals('Error', $response['status']);
+        $this->assertEquals('The mandatory claims are not correctly configured in the identity provider', $response['message']);
+    }
+
+    public function testGetAssertionActionResponseWithUsernameEmpty()
+    {
+        $assertionConsumerServiceRequest = (object) ['isClaimsRequired' => true];
+        $claimsInfos = (object) [
+            'email' => 'user@example.com',
+            'userName' => '',
+            'firstName' => 'test',
+            'lastName' => 'test'
+        ];
+        $requestedEmail = 'user@example.com';
+    
+        $response = $this->assertionActionService->getAssertionActionResponse($assertionConsumerServiceRequest, $claimsInfos, $requestedEmail);
+    
+        $this->assertEquals('Error', $response['status']);
+        $this->assertEquals('The mandatory claims are not correctly configured in the identity provider', $response['message']);
+    }
+    
+    public function testGetAssertionActionResponseWithFirstNameEmpty()
+    {
+        $assertionConsumerServiceRequest = (object) ['isClaimsRequired' => true];
+        $claimsInfos = (object) [
+            'email' => 'user@example.com',
+            'userName' => 'test',
+            'firstName' => '',
+            'lastName' => 'test'
+        ];
+        $requestedEmail = 'user@example.com';
+    
+        $response = $this->assertionActionService->getAssertionActionResponse($assertionConsumerServiceRequest, $claimsInfos, $requestedEmail);
+    
+        $this->assertEquals('Error', $response['status']);
+        $this->assertEquals('The mandatory claims are not correctly configured in the identity provider', $response['message']);
+    }
+    
+    public function testGetAssertionActionResponseWithLastNameEmpty()
+    {
+        $assertionConsumerServiceRequest = (object) ['isClaimsRequired' => true];
+        $claimsInfos = (object) [
+            'email' => 'user@example.com',
+            'userName' => 'test',
+            'firstName' => 'test',
+            'lastName' => ''
+        ];
+        $requestedEmail = 'user@example.com';
+    
+        $response = $this->assertionActionService->getAssertionActionResponse($assertionConsumerServiceRequest, $claimsInfos, $requestedEmail);
+    
+        $this->assertEquals('Error', $response['status']);
+        $this->assertEquals('The mandatory claims are not correctly configured in the identity provider', $response['message']);
+    }
 }

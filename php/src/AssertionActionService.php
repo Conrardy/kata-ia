@@ -17,7 +17,7 @@ class AssertionActionService implements IAssertionActionService
 
     public function getAssertionActionResponse($assertionConsumerServiceRequest, $claimsInfos, $requestedEmail)
     {
-        if ($assertionConsumerServiceRequest->isClaimsRequired && !$this->validateMandatoryClaims($claimsInfos, $requestedEmail)) {
+        if ($assertionConsumerServiceRequest->isClaimsRequired && $this->hasNullOrEmptyMandatoryClaims($claimsInfos, $requestedEmail)) {
             return [
                 'status' => 'Error',
                 'message' => 'The mandatory claims are not correctly configured in the identity provider'
@@ -29,8 +29,7 @@ class AssertionActionService implements IAssertionActionService
         ];
     }
 
-
-    private function validateMandatoryClaims($claimsInfos, $requestedEmail)
+    private function hasNullOrEmptyMandatoryClaims($claimsInfos, $requestedEmail)
     {
         $mandatoryClaims = [
             'email' => $claimsInfos->email,
@@ -39,15 +38,13 @@ class AssertionActionService implements IAssertionActionService
             'lastName' => $claimsInfos->lastName,
         ];
 
-        $claimsIsValid = true;
-
         foreach ($mandatoryClaims as $claimName => $claimValue) {
             if (empty($claimValue)) {
                 $this->logger->warning("The claim {$claimName} is not correctly configured in the identity provider for this user {$requestedEmail}");
-                $claimsIsValid = false;
+                return true;
             }
         }
 
-        return $claimsIsValid;
+        return false;
     }
 }

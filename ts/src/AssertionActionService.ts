@@ -9,6 +9,7 @@ export interface ClaimsInfos {
     userName?: string | null;
     firstName?: string | null;
     lastName?: string | null;
+    [key: string]: string | null | undefined;
 }
 
 enum AssertionActionStatus {
@@ -31,7 +32,7 @@ export class AssertionActionService implements IAssertionActionService {
     });
 
     public getAssertionActionResponse(assertionConsumerServiceRequest: AssertionConsumerServiceRequest, claimsInfos: ClaimsInfos, requestedEmail: string): AssertionActionResponse {
-        if (assertionConsumerServiceRequest.isClaimsRequired && !this.validateMandatoryClaims(claimsInfos, requestedEmail)) {
+        if (assertionConsumerServiceRequest.isClaimsRequired && this.isAnyMandatoryClaimMissing(claimsInfos, requestedEmail)) {
             return {
                 status: AssertionActionStatus.Error,
                 message: "The mandatory claims are not correctly configured in the identity provider"
@@ -43,29 +44,17 @@ export class AssertionActionService implements IAssertionActionService {
         };
     }
 
-    private validateMandatoryClaims(claimsInfos: ClaimsInfos, requestedEmail: string): boolean {
-        let claimsIsValid = true;
+    private isAnyMandatoryClaimMissing(claimsInfos: ClaimsInfos, requestedEmail: string): boolean {
+        const mandatoryClaims = ['email', 'userName', 'firstName', 'lastName'];
+        let isMissingClaim = false;
 
-        if (!claimsInfos.email) {
-            this.logger.warn(`The claim email is not correctly configured in the identity provider for this user ${requestedEmail}`);
-            claimsIsValid = false;
+        for (const claim of mandatoryClaims) {
+            if (!claimsInfos[claim]) {
+                this.logger.warn(`The claim ${claim} is not correctly configured in the identity provider for this user ${requestedEmail}`);
+                isMissingClaim = true;
+            }
         }
 
-        if (!claimsInfos.userName) {
-            this.logger.warn(`The claim userName is not correctly configured in the identity provider for this user ${requestedEmail}`);
-            claimsIsValid = false;
-        }
-
-        if (!claimsInfos.firstName) {
-            this.logger.warn(`The claim firstName is not correctly configured in the identity provider for this user ${requestedEmail}`);
-            claimsIsValid = false;
-        }
-
-        if (!claimsInfos.lastName) {
-            this.logger.warn(`The claim lastName is not correctly configured in the identity provider for this user ${requestedEmail}`);
-            claimsIsValid = false;
-        }
-
-        return claimsIsValid;
+        return isMissingClaim;
     }
 }

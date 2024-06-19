@@ -3,9 +3,16 @@ import { AssertionConsumerServiceRequest, ClaimsInfos } from '../AssertionAction
 
 describe('AssertionActionService', () => {
     let service: AssertionActionService;
+    let mockLoggerWarn: jest.SpyInstance;
 
     beforeEach(() => {
         service = new AssertionActionService();
+        mockLoggerWarn = jest.spyOn(service['logger'], 'warn');
+    });
+
+    afterEach(() => {
+        // Restore the original implementation
+        mockLoggerWarn.mockRestore();
     });
 
     describe('getAssertionActionResponse', () => {
@@ -49,6 +56,22 @@ describe('AssertionActionService', () => {
             const response = service.getAssertionActionResponse(request, claimsInfos, requestedEmail);
 
             expect(response.status).toBe('Success');
+        });
+
+        it('should log warnings for missing mandatory claims', () => {
+            const claimsInfos: ClaimsInfos = {}; // Empty claims to trigger warnings
+            const assertionConsumerServiceRequest: AssertionConsumerServiceRequest = {
+                isClaimsRequired: true
+            };
+            const requestedEmail = 'test@example.com';
+    
+            service.getAssertionActionResponse(assertionConsumerServiceRequest, claimsInfos, requestedEmail);
+    
+            // Verify that logger.warn was called for each missing claim
+            expect(mockLoggerWarn).toHaveBeenCalledWith(expect.stringContaining('email is not correctly configured'));
+            expect(mockLoggerWarn).toHaveBeenCalledWith(expect.stringContaining('userName is not correctly configured'));
+            expect(mockLoggerWarn).toHaveBeenCalledWith(expect.stringContaining('firstName is not correctly configured'));
+            expect(mockLoggerWarn).toHaveBeenCalledWith(expect.stringContaining('lastName is not correctly configured'));
         });
     });
 });

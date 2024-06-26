@@ -35,6 +35,39 @@ namespace GameOfLifeTests
             // Assert
             Assert.IsType<DeadCell>(newCell);
         }
+
+        [Theory]
+        [InlineData(4)]
+        [InlineData(5)]
+        [InlineData(6)]
+        [InlineData(7)]
+        [InlineData(8)]
+        public void AnyLiveCellWithMoreThanThreeLiveNeighboursDiesAsIfByOvercrowding(
+            int nbNeighbours
+        )
+        {
+            // Arrange
+            Cell cell = new LiveCell();
+
+            // Act
+            Cell newCell = cell.NextGeneration(nbNeighbours);
+
+            // Assert
+            Assert.IsType<DeadCell>(newCell);
+        }
+
+        [Fact]
+        public void AnyDeadCellWithExactlyThreeLiveNeighboursBecomesALiveCell()
+        {
+            // Arrange
+            Cell cell = new DeadCell();
+
+            // Act
+            Cell newCell = cell.NextGeneration(3);
+
+            // Assert
+            Assert.IsType<LiveCell>(newCell);
+        }
     }
 
     public abstract class Cell

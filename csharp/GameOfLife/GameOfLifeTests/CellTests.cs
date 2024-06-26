@@ -18,6 +18,23 @@ namespace GameOfLifeTests
             // Assert
             Assert.IsType<LiveCell>(newCell);
         }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(1)]
+        public void AnyLiveCellWithFewerThanTwoLiveNeighboursDiesAsIfCausedByUnderpopulation(
+            int nbNeighbours
+        )
+        {
+            // Arrange
+            Cell cell = new LiveCell();
+
+            // Act
+            Cell newCell = cell.NextGeneration(nbNeighbours);
+
+            // Assert
+            Assert.IsType<DeadCell>(newCell);
+        }
     }
 
     public abstract class Cell
@@ -36,7 +53,9 @@ namespace GameOfLifeTests
             {
                 return new LiveCell();
             }
-            return null;
+            return new DeadCell();
         }
     }
+
+    public class DeadCell : Cell { }
 }

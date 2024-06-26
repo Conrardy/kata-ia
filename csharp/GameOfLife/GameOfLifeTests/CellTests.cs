@@ -90,5 +90,15 @@ namespace GameOfLifeTests
         }
     }
 
-    public class DeadCell : Cell { }
+    public class DeadCell : Cell
+    {
+        public override Cell NextGeneration(int nbNeighbours)
+        {
+            if (nbNeighbours == 3)
+            {
+                return new LiveCell();
+            }
+            return new DeadCell();
+        }
+    }
 }

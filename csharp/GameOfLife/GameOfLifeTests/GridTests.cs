@@ -13,5 +13,6 @@ namespace GameOfLifeTests
             // You could check something about the grid here
             Assert.True(true); // Simple assertion for demonstration
         }
+
     }
 }

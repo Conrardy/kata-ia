@@ -2,14 +2,20 @@ namespace GameOfLifeTests
 {
     public class CellTests
     {
-        [Fact]
-        public void AnyLiveCellWithTwoOrThreeLiveNeighboursLivesOnToTheNextGeneration()
+        [Theory]
+        [InlineData(2)]
+        [InlineData(3)]
+        public void AnyLiveCellWithTwoOrThreeLiveNeighboursLivesOnToTheNextGeneration(
+            int nbNeighbours
+        )
         {
+            // Arrange
             Cell cell = new LiveCell();
-            int nbNeighbours = 2;
 
+            // Act
             Cell newCell = cell.NextGeneration(nbNeighbours);
 
+            // Assert
             Assert.IsType<LiveCell>(newCell);
         }
     }

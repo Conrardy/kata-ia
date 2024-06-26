@@ -13,7 +13,13 @@ namespace GameOfLifeApp
 
         public void Start()
         {
-            grid.Print();
+            while (true)
+            {
+                Console.Clear();
+                grid.Print();
+                grid.NextGeneration();
+                System.Threading.Thread.Sleep(1000);
+            }
             // Add the logic for the Game of Life rules here
         }
     }

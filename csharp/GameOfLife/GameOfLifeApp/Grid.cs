@@ -4,11 +4,11 @@ namespace GameOfLifeApp
 {
     public class Grid
     {
-        private int[,] grid;
+        private Cell[,] grid;
 
         public Grid(int rows, int cols)
         {
-            grid = new int[rows, cols];
+            grid = new Cell[rows, cols];
         }
 
         public void Print()

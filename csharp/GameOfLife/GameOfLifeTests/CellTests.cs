@@ -1,3 +1,5 @@
+using GameOfLifeApp;
+
 namespace GameOfLifeTests
 {
     public class CellTests
@@ -68,37 +70,31 @@ namespace GameOfLifeTests
             // Assert
             Assert.IsType<LiveCell>(newCell);
         }
-    }
 
-    public abstract class Cell
-    {
-        public virtual Cell NextGeneration(int nbNeighbours)
+        [Fact]
+        public void DeadCellDisplay0()
         {
-            return null;
+            // Arrange
+            Cell cell = new DeadCell();
+
+            // Act
+            string display = cell.ToString();
+
+            // Assert
+            Assert.Equal("0", display);
         }
-    }
 
-    public class LiveCell : Cell
-    {
-        public override Cell NextGeneration(int nbNeighbours)
+        [Fact]
+        public void LiveCellDisplayX()
         {
-            if (nbNeighbours == 2 || nbNeighbours == 3)
-            {
-                return new LiveCell();
-            }
-            return new DeadCell();
-        }
-    }
+            // Arrange
+            Cell cell = new LiveCell();
 
-    public class DeadCell : Cell
-    {
-        public override Cell NextGeneration(int nbNeighbours)
-        {
-            if (nbNeighbours == 3)
-            {
-                return new LiveCell();
-            }
-            return new DeadCell();
+            // Act
+            string display = cell.ToString();
+
+            // Assert
+            Assert.Equal("X", display);
         }
     }
 }

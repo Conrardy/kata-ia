@@ -8,6 +8,7 @@ export class GameOfLife {
     }
 
     public start(): void {
+
         this.grid.print();
         // Logic for game of life will go here
     }

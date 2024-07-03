@@ -1,3 +1,5 @@
+import { Grid } from "../grid";
+
 export class LiveCell {
     public nextGeneration(neighbours: number): DeadCell | LiveCell {
         if (neighbours === 2 || neighbours === 3) {
@@ -75,5 +77,27 @@ describe('GameOfLife', () => {
         });
     }
 
+    it('should set the cell value', () => {
+        const grid = new Grid(3, 3);
+        grid.setCell(1, 1, new LiveCell());
 
+        const expectedLiveCell = new LiveCell();
+        expect(grid.getCell(1, 1)).toStrictEqual(expectedLiveCell);
+    });
+
+    it('should return the number of live neighbours', () => {
+        const grid = new Grid(3, 3);
+        grid.setCell(0, 0, new LiveCell());
+        grid.setCell(0, 1, new LiveCell());
+        grid.setCell(0, 2, new LiveCell());
+        grid.setCell(1, 0, new LiveCell());
+        grid.setCell(1, 2, new LiveCell());
+        grid.setCell(2, 0, new LiveCell());
+        grid.setCell(2, 1, new LiveCell());
+        grid.setCell(2, 2, new LiveCell());
+
+        const count = grid.countNeighbours(1, 1);
+
+        expect(count).toBe(8);
+    });
 });

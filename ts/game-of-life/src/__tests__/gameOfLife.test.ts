@@ -63,4 +63,17 @@ describe('GameOfLife', () => {
         const expectedLiveCell = new LiveCell();
         expect(nextGeneration).toStrictEqual(expectedLiveCell);
     });
+
+    for (const neighbours of [0, 1, 2, 4, 5, 6, 7, 8]) {
+        it(`Any dead cell with ${neighbours} live neighbours stays dead`, () => {
+            const cell = new DeadCell();
+
+            const nextGeneration = cell.nextGeneration(neighbours);
+
+            const expectedDeadCell = new DeadCell();
+            expect(nextGeneration).toStrictEqual(expectedDeadCell);
+        });
+    }
+
+
 });

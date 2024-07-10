@@ -11,9 +11,18 @@ namespace GameOfLifeApp
             grid = new Grid(rows, cols);
         }
 
+		public void setSeed(Cell[,] seed)  {
+			this.grid.cells = seed;
+		}
+
         public void Start()
         {
-            while (true)
+			run();
+        }
+
+		public void run()
+		{
+			while (true)
             {
                 Console.Clear();
                 grid.Print();
@@ -21,6 +30,6 @@ namespace GameOfLifeApp
                 System.Threading.Thread.Sleep(1000);
             }
             // Add the logic for the Game of Life rules here
-        }
+		}
     }
 }

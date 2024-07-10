@@ -4,35 +4,35 @@ namespace GameOfLifeApp
 {
     public class Grid
     {
-        public Cell[,] grid;
+        public Cell[,] cells;
 
         public Grid(int rows, int cols)
         {
-            grid = new Cell[rows, cols];
+            cells = new Cell[rows, cols];
 
-            for (int i = 0; i < grid.GetLength(0); i++)
+            for (int i = 0; i < cells.GetLength(0); i++)
             {
-                for (int j = 0; j < grid.GetLength(1); j++)
+                for (int j = 0; j < cells.GetLength(1); j++)
                 {
-                    grid[i, j] = new DeadCell();
+                    cells[i, j] = new DeadCell();
                 }
             }
         }
 
         public void NextGeneration()
         {
-            Cell[,] newGrid = new Cell[grid.GetLength(0), grid.GetLength(1)];
+            Cell[,] newGrid = new Cell[cells.GetLength(0), cells.GetLength(1)];
 
-            for (int i = 0; i < grid.GetLength(0); i++)
+            for (int i = 0; i < cells.GetLength(0); i++)
             {
-                for (int j = 0; j < grid.GetLength(1); j++)
+                for (int j = 0; j < cells.GetLength(1); j++)
                 {
                     int nbNeighbours = CountNeighbours(i, j);
-                    newGrid[i, j] = grid[i, j].NextGeneration(nbNeighbours);
+                    newGrid[i, j] = cells[i, j].NextGeneration(nbNeighbours);
                 }
             }
 
-            grid = newGrid;
+            cells = newGrid;
         }
 
         public int CountNeighbours(int i, int j)
@@ -45,13 +45,13 @@ namespace GameOfLifeApp
                 {
                     if (
                         x >= 0
-                        && x < grid.GetLength(0)
+                        && x < cells.GetLength(0)
                         && y >= 0
-                        && y < grid.GetLength(1)
+                        && y < cells.GetLength(1)
                         && !(x == i && y == j)
                     )
                     {
-                        if (grid[x, y] is LiveCell)
+                        if (cells[x, y] is LiveCell)
                         {
                             count++;
                         }
@@ -64,11 +64,11 @@ namespace GameOfLifeApp
 
         public void Print()
         {
-            for (int i = 0; i < grid.GetLength(0); i++)
+            for (int i = 0; i < cells.GetLength(0); i++)
             {
-                for (int j = 0; j < grid.GetLength(1); j++)
+                for (int j = 0; j < cells.GetLength(1); j++)
                 {
-                    Console.Write(grid[i, j] + " ");
+                    Console.Write(cells[i, j] + " ");
                 }
                 Console.WriteLine();
             }

@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <RootNamespace>Kata_IA_refactoringTests</RootNamespace>
+    <RootNamespace>RefactoringTests</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Kata-IA-refactoring\Kata-IA-refactoring.csproj" />
+    <ProjectReference Include="..\Refactoring\Refactoring.csproj" />
   </ItemGroup>
 
 </Project>

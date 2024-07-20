@@ -1,8 +1,11 @@
-using Kata_IA_refactoring.Models;
 using Microsoft.Extensions.Logging.Abstractions;
+using Refactoring.Models;
+using Refactoring.Services;
 
-namespace Kata_IA_refactoringTests.Services;
+namespace RefactoringTests.Services;
 
+//Todo : add missing tests. Use theories if needed.
+//Todo bonus : refactor to use shouldly (nuget) instead of xunit assertions.
 public class AssertionActionServiceTests
 {
     [Fact]

@@ -2,7 +2,7 @@
 
 ## Prérequis
 
-- .NET SDK (version 5.0 ou supérieure)
+- .NET SDK (version 8.0 ou supérieure)
 
 ## Installation
 
@@ -10,7 +10,6 @@
 
     ```bash
     git clone https://github.com/Conrardy/kata-ia.git
-    cd kata-ia/csharp/Kata-IA-refactoring
     ```
 
 2. Restaurez les dépendances :

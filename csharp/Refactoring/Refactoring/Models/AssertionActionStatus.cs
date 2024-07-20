@@ -1,4 +1,4 @@
-﻿namespace Kata_IA_refactoring.Models;
+﻿namespace Refactoring.Models;
 
 public enum AssertionActionStatus
 {

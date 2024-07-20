@@ -1,0 +1,1 @@
+{"version":1,"defects":{"SampleTest::testGreet":8,"SampleTest::testGreetWithEmptyName":8,"SampleTest::testGreetWithNullName":8},"times":{"SampleTest::testGreet":0.006,"SampleTest::testGreetWithEmptyName":0,"SampleTest::testGreetWithNullName":0}}

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Réservation de Train</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        select, input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: inline-block;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #0056b3;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #004494;
+        }
+    </style>
+</head>
+<body>
+    <h1>Réservation de Train</h1>
+    <div class="container">
+        <div class="form-group">
+            <label for="train-select">Sélectionnez un train :</label>
+            <select id="train-select">
+                <option value="1">Train Alpha</option>
+                <option value="2">Train Beta</option>
+                <option value="3">Train Gamma</option>
+                <!-- Ajouter d'autres options de train selon les besoins -->
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="group-size-input">Nombre de passagers :</label>
+            <input type="number" id="group-size-input" min="1" max="500" placeholder="Entrez le nombre de passagers">
+        </div>
+
+        <a href="#" class="btn" onclick="confirmReservation()">Confirmer la Réservation</a>
+    </div>
+
+    <script>
+        function confirmReservation() {
+            const trainSelect = document.getElementById('train-select');
+            const groupSizeInput = document.getElementById('group-size-input');
+
+            const selectedTrain = trainSelect.options[trainSelect.selectedIndex].text;
+            const groupSize = groupSizeInput.value;
+
+            if (groupSize < 1 || groupSize > 500) {
+                alert('Veuillez entrer un nombre de passagers entre 1 et 500.');
+                return;
+            }
+
+            alert(`Réservation confirmée pour le ${selectedTrain} avec ${groupSize} passagers.`);
+        }
+    </script>
+</body>
+</html>

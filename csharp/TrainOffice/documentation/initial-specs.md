@@ -1,14 +1,13 @@
-**Besoin**
+# Train Office
+## Besoin
 
 - Une interface web pour pouvoir réserver des places dans un train
 
-**Restrictions techniques**
-
+## Restrictions techniques
 - Une interface web
 - Une API (web)
 
-**Règles** 
-
+## Règles
 - Un train est composé de wagons (nombre inconnu)
 - Pour un même train, le nombre de sièges par wagon N’est PAS forcément unique
 - On ne peut pas remplir à plus de 70% un train
@@ -20,3 +19,12 @@
 - Chaque wagon a une lettre
 - Chaque siège du wagon est numéroté de de 1 à n et il est sufixé par la lettre du wagon
 Ex. 1A, 2A, … 1B, 2A
+
+## Stack Technique
+### Front office
+- HTML
+- Javascript
+### API
+- C#
+- Memory DB
+

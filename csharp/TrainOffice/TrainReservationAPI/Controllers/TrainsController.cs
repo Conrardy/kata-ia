@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
+using TrainReservationAPI.Dto;
+using TrainReservationAPI.Services;
+
 namespace TrainReservationAPI.Controllers;
 
 [Route("api/[controller]")]

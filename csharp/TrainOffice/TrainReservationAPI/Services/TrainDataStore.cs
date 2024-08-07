@@ -1,4 +1,6 @@
-namespace TrainReservationAPI.Service;
+using TrainReservationAPI.Dto;
+
+namespace TrainReservationAPI.Services;
 
 public class TrainDataStore
 {

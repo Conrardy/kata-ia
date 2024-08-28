@@ -1,4 +1,5 @@
-﻿using TrainOffice.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using TrainOffice.Data;
 using TrainOffice.Models;
 
 namespace TrainOffice.Configuration;
@@ -15,6 +16,19 @@ public static class ConfigureData
             var context = services.GetRequiredService<ApplicationDbContext>();
             context.Database.EnsureCreated();
             AddTestData(context);
+        }
+    }
+
+    public static void MigrateDatabase(this WebApplication app, IConfiguration configuration)
+    {
+        var databaseProvider = configuration.GetValue<string>("DatabaseProvider");
+        if (databaseProvider == ConfigurePersistences.PostgerSQL)
+        {
+            using var scope = app.Services.CreateScope();
+            var services = scope.ServiceProvider;
+            var context = services.GetRequiredService<ApplicationDbContext>();
+            context.Database.EnsureCreated();
+            context.Database.Migrate();
         }
     }
 

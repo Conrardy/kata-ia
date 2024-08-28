@@ -15,6 +15,7 @@ builder.Services.AddControllers();
 var app = builder.Build();
 
 app.SeedInMemoryDb(configuration);
+app.MigrateDatabase(configuration);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

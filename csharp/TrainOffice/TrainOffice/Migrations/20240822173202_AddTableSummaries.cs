@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace TrainOffice.Migrations;
 
 /// <inheritdoc />
-public partial class InsertSummaries : Migration
+public partial class AddTableSummaries : Migration
 {
     /// <inheritdoc />
     protected override void Up(MigrationBuilder migrationBuilder)

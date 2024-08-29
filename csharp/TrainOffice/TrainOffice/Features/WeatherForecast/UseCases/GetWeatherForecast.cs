@@ -1,13 +1,13 @@
-﻿using TrainOffice.Repositories;
+﻿using TrainOffice.Features.Domain;
 
-namespace TrainOffice.WeatherForecast;
+namespace TrainOffice.Features.WeatherForecast.UseCases;
 
-public interface IWeatherForecastApplication
+public interface IGetWeatherForecast
 {
     Task<WeatherForecast[]> GetWeatherForecastAsync();
 }
 
-public class WeatherForecastApplication(ISummaryRepository summaryRepository) : IWeatherForecastApplication
+public class GetWeatherForecast(ISummaryRepository summaryRepository) : IGetWeatherForecast
 {
     public async Task<WeatherForecast[]> GetWeatherForecastAsync()
     {

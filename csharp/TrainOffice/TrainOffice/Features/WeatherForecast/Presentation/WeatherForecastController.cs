@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text;
-using TrainOffice.WeatherForecast;
+using TrainOffice.Features.WeatherForecast.UseCases;
 
-namespace TrainOffice.Controllers;
+namespace TrainOffice.Features.WeatherForecast.Presentation;
 
 [ApiController]
 [Route("[controller]")]
-public class WeatherForecastController(IWeatherForecastApplication weatherForecastApplication) : ControllerBase
+public class WeatherForecastController(IGetWeatherForecast weatherForecastApplication) : ControllerBase
 {
     [HttpGet]
     public async Task<IActionResult> GetWeatherForecast()

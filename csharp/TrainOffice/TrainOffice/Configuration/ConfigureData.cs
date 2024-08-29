@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TrainOffice.Data;
-using TrainOffice.Models;
+using TrainOffice.Infrastructures.Models;
+using TrainOffice.Infrastructures.PostgreSQL.Context;
 
 namespace TrainOffice.Configuration;
 

@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TrainOffice.Data;
-using TrainOffice.Repositories;
+using TrainOffice.Features.Domain;
+using TrainOffice.Infrastructures.Memory.Repositories;
+using TrainOffice.Infrastructures.PostgreSQL.Context;
+using TrainOffice.Infrastructures.PostgreSQL.Repositories;
 
 namespace TrainOffice.Configuration;
 

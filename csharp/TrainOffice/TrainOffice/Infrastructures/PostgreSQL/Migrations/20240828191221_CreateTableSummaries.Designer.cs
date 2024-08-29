@@ -4,15 +4,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using TrainOffice.Data;
+using TrainOffice.Infrastructures.PostgreSQL.Context;
 
 #nullable disable
 
 namespace TrainOffice.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240828191242_InsertSummaries")]
-    partial class InsertSummaries
+    [Migration("20240828191221_CreateTableSummaries")]
+    partial class CreateTableSummaries
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

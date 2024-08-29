@@ -5,7 +5,7 @@
 namespace TrainOffice.Migrations;
 
 /// <inheritdoc />
-public partial class AddSummaries : Migration
+public partial class InsertSummaries : Migration
 {
     /// <inheritdoc />
     protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,12 +15,12 @@ public partial class AddSummaries : Migration
             columns: new[] { "Content" },
             values: new object[,]
             {
-                { "Mild" },
-                { "Hot" },
-                { "Cold" },
-                { "Warm" },
-                { "Freezing" },
-                { "Cool" },
+            { "Mild" },
+            { "Hot" },
+            { "Cold" },
+            { "Warm" },
+            { "Freezing" },
+            { "Cool" },
             }
         );
     }

@@ -11,8 +11,8 @@ using TrainOffice.Data;
 namespace TrainOffice.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240822175012_AddSummaries")]
-    partial class AddSummaries
+    [Migration("20240828191221_CreateTableSummaries")]
+    partial class CreateTableSummaries
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

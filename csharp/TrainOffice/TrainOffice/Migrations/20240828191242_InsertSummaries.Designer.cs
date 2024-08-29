@@ -11,7 +11,7 @@ using TrainOffice.Data;
 namespace TrainOffice.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240822173202_InsertSummaries")]
+    [Migration("20240828191242_InsertSummaries")]
     partial class InsertSummaries
     {
         /// <inheritdoc />

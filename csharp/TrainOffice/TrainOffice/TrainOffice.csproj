@@ -22,5 +22,7 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
-
+    <Target Name="RunExportScript" AfterTargets="AfterBuild">
+	    <Exec Command="powershell -ExecutionPolicy Bypass -File &quot;$(SolutionDir)export-files-structure.ps1&quot;" />
+    </Target>
 </Project>

@@ -92,6 +92,12 @@ Créer une migration :
    dotnet ef migrations add InitialCreate
    ```
 
+   ```sh
+   dotnet ef migrations add InitialCreate --output-dir Migrations/CustomPath
+   ```
+   
+
+
 Appliquer la migration :
 
    ```sh

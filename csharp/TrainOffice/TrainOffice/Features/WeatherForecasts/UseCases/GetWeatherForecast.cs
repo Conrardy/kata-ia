@@ -1,6 +1,6 @@
 ﻿using TrainOffice.Features.Domain;
 
-namespace TrainOffice.Features.WeatherForecast.UseCases;
+namespace TrainOffice.Features.WeatherForecasts.UseCases;
 
 public interface IGetWeatherForecast
 {

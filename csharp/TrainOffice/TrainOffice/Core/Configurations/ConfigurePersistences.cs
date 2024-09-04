@@ -4,7 +4,7 @@ using TrainOffice.Infrastructures.Memory.Repositories;
 using TrainOffice.Infrastructures.PostgreSQL.Context;
 using TrainOffice.Infrastructures.PostgreSQL.Repositories;
 
-namespace TrainOffice.Configuration;
+namespace TrainOffice.Core.Configuration;
 
 public static class ConfigurePersistences
 {

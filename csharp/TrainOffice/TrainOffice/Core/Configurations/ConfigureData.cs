@@ -2,7 +2,7 @@
 using TrainOffice.Infrastructures.Models;
 using TrainOffice.Infrastructures.PostgreSQL.Context;
 
-namespace TrainOffice.Configuration;
+namespace TrainOffice.Core.Configuration;
 
 public static class ConfigureData
 {

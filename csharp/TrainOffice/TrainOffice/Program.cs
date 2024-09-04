@@ -1,4 +1,5 @@
-using TrainOffice.Configuration;
+using TrainOffice.Core.Configuration;
+using TrainOffice.Core.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +27,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseRouting();
+
+app.UseCustomMiddlewares();
+
 app.MapControllers();
 
 app.MapGet(

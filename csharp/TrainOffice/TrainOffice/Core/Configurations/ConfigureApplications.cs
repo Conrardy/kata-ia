@@ -1,6 +1,6 @@
-﻿using TrainOffice.Features.WeatherForecast.UseCases;
+﻿using TrainOffice.Features.WeatherForecasts.UseCases;
 
-namespace TrainOffice.Configuration;
+namespace TrainOffice.Core.Configuration;
 
 public static class ConfigureApplications
 {

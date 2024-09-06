@@ -32,7 +32,7 @@ public class WeatherForecastController(IGetWeatherForecast weatherForecastApplic
     /// Gets the weather forecast in JSON format.
     /// </summary>
     /// <returns>An array of WeatherForecast entities.</returns>
-    [HttpGet("json")]
+    [HttpGet("json", Name = "GetWeatherForecastJson")]
     [ProducesResponseType(typeof(ApiResponse<IEnumerable<WeatherForecast>>), 200)]
     [ProducesResponseType(typeof(ApiResponse<ErrorResponse>), 404)]
     [ProducesResponseType(typeof(ApiResponse<ErrorResponse>), 500)]

@@ -12,6 +12,7 @@ var configuration = builder.Configuration;
 builder.Services.AddPersistences(configuration);
 builder.Services.AddApplications();
 builder.Services.AddControllers();
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
@@ -44,3 +45,7 @@ app.MapGet(
 );
 
 app.Run();
+
+// needed for use WebApplicationFactory in http tests
+public partial class Program
+{ }

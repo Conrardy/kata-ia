@@ -1,4 +1,6 @@
-﻿namespace TrainOffice.Infrastructures.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace TrainOffice.Infrastructures.Models;
 
 public class ApiResponse<T>
 {
@@ -24,6 +26,21 @@ public class ApiResponse<T>
     {
         Data = data;
         Errors = null;
+        Meta = meta;
+    }
+
+    public ApiResponse(T data, List<ApiError> errors)
+    {
+        Data = data;
+        Errors = errors;
+        Meta = null;
+    }
+
+    [JsonConstructor]
+    public ApiResponse(T data, List<ApiError> errors, Meta meta)
+    {
+        Data = data;
+        Errors = errors;
         Meta = meta;
     }
 }

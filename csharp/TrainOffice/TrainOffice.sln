@@ -11,9 +11,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		docker-compose.yml = docker-compose.yml
 		export-files-structure.ps1 = export-files-structure.ps1
+		ia-rules.md = ia-rules.md
 		project_structure.txt = project_structure.txt
-		Readme.md = Readme.md
 		Prompts.md = Prompts.md
+		Readme.md = Readme.md
 	EndProjectSection
 EndProject
 Global

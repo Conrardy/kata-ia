@@ -109,3 +109,15 @@ Vérifier les migrations :
    ```sh
    dotnet ef migrations list
    ```
+
+  
+   # Ngrok
+   To share your local server with the world, you need to use a tool like ngrok. 
+   
+   Ngrok creates a secure tunnel to your localhost server and provides you with a public URL that you can share with others.
+
+   - Install ngrok https://ngrok.com/
+
+   ```sh
+   ngrok http https://localhost:7116
+   ```

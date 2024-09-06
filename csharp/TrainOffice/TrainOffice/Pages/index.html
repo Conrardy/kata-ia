@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Forecast</title>
-    <script src="https://unpkg.com/htmx.org@1.6.1"></script>
 </head>
 <body>
     <h1>Prévisions Météo</h1>
-    <button hx-get="/weatherforecast" hx-trigger="click" hx-target="#forecast tbody">Obtenir les prévisions</button>
+    <button id="load-forecast">Obtenir les prévisions</button>
     <table id="forecast">
         <thead>
             <tr>
@@ -22,5 +21,6 @@
             <!-- Les prévisions météo seront affichées ici -->
         </tbody>
     </table>
+    <script src="app.js"></script>
 </body>
 </html>

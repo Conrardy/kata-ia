@@ -5,8 +5,16 @@ namespace TrainOffice.Core.Middlewares;
 
 public class ResponseWrapperMiddleware(RequestDelegate next)
 {
+    private const string Root = "/";
+
     public async Task InvokeAsync(HttpContext context)
     {
+        if (context.Request.Path.Value == Root)
+        {
+            await next(context);
+            return;
+        }
+
         var originalBodyStream = context.Response.Body;
 
         using var responseBody = new MemoryStream();

@@ -28,6 +28,9 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
+// use to serve static files like app.js
+app.UseStaticFiles();
+
 app.UseCustomMiddlewares();
 
 app.MapControllers();
@@ -36,7 +39,7 @@ app.MapGet(
     "/",
     async context =>
     {
-        await context.Response.SendFileAsync("Src/index.html");
+        await context.Response.SendFileAsync("pages/index.html");
     }
 );
 

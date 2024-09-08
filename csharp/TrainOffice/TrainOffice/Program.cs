@@ -1,7 +1,16 @@
+using Serilog;
 using TrainOffice.Core.Configuration;
 using TrainOffice.Core.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configure Serilog
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .Enrich.FromLogContext()
+    .CreateLogger();
+
+builder.Host.UseSerilog();
 
 // Add services to the container.
 builder.Services.AddEndpointsApiExplorer();

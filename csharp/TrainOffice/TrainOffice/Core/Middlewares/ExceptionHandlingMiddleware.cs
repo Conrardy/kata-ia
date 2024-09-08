@@ -4,7 +4,7 @@ using TrainOffice.Infrastructures.Models;
 
 namespace TrainOffice.Core.Middlewares;
 
-public class ExceptionHandlingMiddleware(RequestDelegate next)
+public class ExceptionHandlingMiddleware(RequestDelegate next, ILogger<ExceptionHandlingMiddleware> logger)
 {
     public async Task InvokeAsync(HttpContext context)
     {
@@ -14,6 +14,7 @@ public class ExceptionHandlingMiddleware(RequestDelegate next)
         }
         catch (Exception ex)
         {
+            logger.LogError(ex, "An unexpected error occurred.");
             await HandleExceptionAsync(context, ex);
         }
     }

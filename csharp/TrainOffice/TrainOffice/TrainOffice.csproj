@@ -4,11 +4,11 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-	<PreserveCompilationContext>true</PreserveCompilationContext>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
   </PropertyGroup>
 
   <ItemGroup>
-  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -27,7 +27,8 @@
   <ItemGroup>
     <None Include="wwwroot\app.js" />
   </ItemGroup>
-    <Target Name="RunExportScript" AfterTargets="AfterBuild">
-	    <Exec Command="powershell -ExecutionPolicy Bypass -File &quot;$(SolutionDir)export-files-structure.ps1&quot;" />
-    </Target>
+
+  <Target Name="RunExportScript" AfterTargets="AfterBuild">
+    <Exec Command="powershell -ExecutionPolicy Bypass -File &quot;$(ProjectDir)\..\export-files-structure.ps1&quot;" />
+  </Target>
 </Project>

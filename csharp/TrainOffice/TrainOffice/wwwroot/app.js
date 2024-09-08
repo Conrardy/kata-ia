@@ -1,7 +1,8 @@
 ﻿console.log("app loaded")
 document.getElementById('load-forecast').addEventListener('click', function () {
     console.log("Loading forecast...")
-    fetch('https://localhost:7116/WeatherForecast/json')  // Ensure the URL matches your local or server configuration
+    const url = `${window.location.origin}/WeatherForecast/json`;  // Use current root host
+    fetch(url)
         .then(response => {
             console.log("Response: ", response)
             if (!response.ok) {

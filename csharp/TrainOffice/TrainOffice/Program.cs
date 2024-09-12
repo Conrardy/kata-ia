@@ -14,8 +14,11 @@ builder.Host.UseSerilog();
 
 // Add services to the container.
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
+builder.Services.AddOpenApiDocument(config =>
+{
+    config.Title = "My API";
+    config.Version = "v1";
+});
 var configuration = builder.Configuration;
 
 builder.Services.AddPersistences(configuration);
@@ -31,8 +34,9 @@ app.MigrateDatabase(configuration);
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    // Serve the OpenAPI/Swagger documents
+    app.UseOpenApi(); // Serves the registered OpenAPI/Swagger documents by default on /swagger/v1/swagger.json
+    app.UseSwaggerUi(); // Serves the Swagger UI on /swagger
 }
 
 app.UseHttpsRedirection();

@@ -5,11 +5,10 @@ namespace TrainOffice.Core.Middlewares;
 
 public class ResponseWrapperMiddleware(RequestDelegate next)
 {
-    private const string Root = "/";
-
     public async Task InvokeAsync(HttpContext context)
     {
-        if (context.Request.Path.Value == Root)
+        // Skip if the request is not an API request
+        if (!context.Request.Path.StartsWithSegments("/api"))
         {
             await next(context);
             return;

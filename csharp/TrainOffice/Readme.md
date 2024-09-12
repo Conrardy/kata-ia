@@ -87,13 +87,14 @@ dotnet add reference ../TrainOffice/TrainOffice.csproj
    ```
 
 Créer une migration :
+- Change appsetting to use DbProvider PostgreSQL
 
    ```sh
    dotnet ef migrations add InitialCreate
    ```
 
    ```sh
-   dotnet ef migrations add InitialCreate --output-dir Migrations/CustomPath
+   dotnet ef migrations add InitialCreate --output-dir Infrastructures/PostgreSQL/Migrations/
    ```
    
 

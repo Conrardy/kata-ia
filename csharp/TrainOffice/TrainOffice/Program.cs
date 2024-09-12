@@ -57,6 +57,14 @@ app.MapGet(
     }
 );
 
+app.MapGet(
+    "/trains",
+    async context =>
+    {
+        await context.Response.SendFileAsync("pages/train.html");
+    }
+);
+
 app.Run();
 
 // needed for use WebApplicationFactory in http tests

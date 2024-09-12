@@ -1,6 +1,11 @@
 @TrainOffice_HostAddress = http://localhost:5091
 
-GET {{TrainOffice_HostAddress}}/weatherforecast/
+GET {{TrainOffice_HostAddress}}/api/weatherforecast/
+Accept: application/json
+
+###
+
+GET {{TrainOffice_HostAddress}}/api/trains/
 Accept: application/json
 
 ###

@@ -12,7 +12,8 @@
 
 - In `app.js`, map the needed data from the backend endpoint. (do not forget that all response is wrapped in a `data` key)
 - Add an endpoint that returns a fake DTO model <name-of-use-case>DTO.
-- Add HTTP tests to test the endpoint.
+- add a new controller into Presentation layer
+- Add HTTP tests to test the this controller via http client
 - commit
 
 ## Step 3: Develop Frontend

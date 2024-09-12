@@ -28,7 +28,7 @@
 - Add a use case application injected in controller.
 - Add tests (integraiton and unit) for the use case and unit tests for domain entities and value objects.
   - commit per integration and unit tests.
-- Use a memory repository with fake data. (update configurationPersistence)
+- Use a memory repository (the interface is in the domain folder) with fake data. (update configurationPersistence)
 - Never pass a domain model to the controller we should always map it to a DTO. use case application returns a DTO.
 - commit
 

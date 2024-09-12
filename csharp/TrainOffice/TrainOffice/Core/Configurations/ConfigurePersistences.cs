@@ -1,10 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿namespace TrainOffice.Core.Configuration;
+
+using Microsoft.EntityFrameworkCore;
 using TrainOffice.Features.Domain;
 using TrainOffice.Infrastructures.Memory.Repositories;
 using TrainOffice.Infrastructures.PostgreSQL.Context;
 using TrainOffice.Infrastructures.PostgreSQL.Repositories;
-
-namespace TrainOffice.Core.Configuration;
 
 public static class ConfigurePersistences
 {
@@ -24,6 +24,9 @@ public static class ConfigurePersistences
                 options.UseNpgsql(configuration.GetConnectionString("PostgreSqlConnection"))
             );
             services.AddScoped<ISummaryRepository, SummaryRepository>();
+            services.AddScoped<ITrainRepository, TrainMemoryRepository>();
+            services.AddScoped<ICoachRepository, CoachMemoryRepository>();
+            services.AddScoped<ISeatRepository, SeatMemoryRepository>();
         }
         else if (databaseProvider == InMemoryDb)
         {
@@ -31,10 +34,16 @@ public static class ConfigurePersistences
                 options.UseInMemoryDatabase("InMemoryDb")
             );
             services.AddScoped<ISummaryRepository, SummaryRepository>();
+            services.AddScoped<ITrainRepository, TrainMemoryRepository>();
+            services.AddScoped<ICoachRepository, CoachMemoryRepository>();
+            services.AddScoped<ISeatRepository, SeatMemoryRepository>();
         }
         else if (databaseProvider == InMemory)
         {
             services.AddScoped<ISummaryRepository, SummaryMemoryRepository>();
+            services.AddScoped<ITrainRepository, TrainMemoryRepository>();
+            services.AddScoped<ICoachRepository, CoachMemoryRepository>();
+            services.AddScoped<ISeatRepository, SeatMemoryRepository>();
         }
     }
 }

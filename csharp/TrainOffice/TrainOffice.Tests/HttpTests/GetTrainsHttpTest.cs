@@ -36,6 +36,11 @@ public class GetTrainsHttpTest : IClassFixture<WebApplicationFactory<Program>>
 
         var apiResponse = await response.Content.ReadFromJsonAsync<ApiResponse<IEnumerable<GetTrainsDTO>>>();
         Assert.NotNull(apiResponse);
+        Assert.NotNull(apiResponse.Data);
         Assert.NotEmpty(apiResponse.Data);
+        Assert.All(apiResponse.Data, train =>
+        {
+            Assert.NotNull(train.Name);
+        });
     }
 }

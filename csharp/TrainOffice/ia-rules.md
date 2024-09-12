@@ -5,8 +5,16 @@
 Provide the command line to add a file each time you ask me to add a new file
 example :
 
+On windows
+
 ``` powershell
-code path\to\my\file
+New-Item -Path "C:\path\to\directory\file.txt" -ItemType File -Force
+```
+
+on mac or linux
+
+``` bash
+mkdir -p /path/to/directory && touch /path/to/directory/file.txt
 ```
 
 ## Rule 2: use File Scoped Namespaces

@@ -1,0 +1,71 @@
+# Cursor Rules for Web API Development
+
+1. **File Organization**
+   Follow the structure defined in the guide tour:
+
+   ```markdown:guide-tour.md
+   startLine: 5
+   endLine: 27
+   ```
+
+2. **File Scoped Namespaces**
+   Use file scoped namespaces to reduce indentation:
+
+   ```csharp
+   namespace TrainOffice.Features.WeatherForecasts;
+   ```
+
+3. **Primary Constructors**
+   Utilize primary constructors for concise class definitions:
+
+   ```csharp
+   public class WeatherForecastController(ILogger<WeatherForecastController> logger)
+   ```
+
+4. **Feature-based Structure**
+   Organize code in Features directory:
+   - `Features/<FeatureName>/Presentation`
+   - `Features/<FeatureName>/UseCases`
+   - `Features/<FeatureName>/Domain`
+
+5. **Consistent Naming**
+   - Controllers: `<Feature>Controller.cs`
+   - Use cases: `<Action><Feature>.cs`
+   - Repositories: `I<Entity>Repository.cs`
+
+6. **Dependency Injection**
+   Use constructor injection for dependencies.
+
+7. **Testing Structure**
+   Create corresponding test files:
+
+8. **Response Wrapping**
+   Utilize `ApiResponse<T>` for consistent API responses.
+
+9. **Exception Handling**
+   Implement global exception handling middleware.
+
+10. **Versioning**
+   Include API versioning in route or header.
+
+11. **Testing**
+   Create corresponding test files for each feature:
+
+- `HttpTests/<Feature>HttpTests.cs`
+- `IntegrationTests/<Feature>IntegrationTests.cs`
+- `UnitTests/<Feature>UnitTests.cs`
+
+12. **Configuration**
+    Use `IOptions<T>` pattern for strongly-typed configuration.
+
+13. **Repository Pattern**
+    Implement repository interfaces:
+
+14. **Database Migrations**
+   Use EF Core migrations:
+
+15. **Logging**
+    Inject and use `ILogger<T>` for consistent logging.
+
+16. **Async/Await**
+    Use async methods with cancellation tokens where applicable.

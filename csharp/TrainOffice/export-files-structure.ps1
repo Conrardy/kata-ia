@@ -5,7 +5,7 @@ $projectPath = "C:\Workspace\kata-ia\csharp\TrainOffice"
 $outputFile = "C:\Workspace\kata-ia\csharp\TrainOffice\project_structure.txt"
 
 # Define a regular expression pattern to match excluded folders
-$excludePattern = 'bin|obj|\.vs'
+$excludePattern = 'bin|obj|logs|\.vs'
 
 # Get the project structure, excluding specified folders at any depth
 Get-ChildItem -Recurse -Path $projectPath -Force |
